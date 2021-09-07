@@ -130,4 +130,30 @@
             android:gravity="center"/>
 
     </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="5pt"
+        android:orientation="horizontal"
+        android:layout_below="@id/child2">
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rbTemp"
+            android:checked="true"/>
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbDist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rbDist"/>
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rbWeight"/>
+    </RadioGroup>
 </RelativeLayout>
