@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
                 new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                        RadioButton selected = (RadioButton) findViewById(checkedId);
+                        RadioButton selectRadio = (RadioButton) findViewById(checkedId);
                         ArrayAdapter<CharSequence> arrayAdapter;
-                        if(selected.getText().equals("Temperature")){
+                        if(selectRadio.getText().equals("Temperature")){
                             arrayAdapter = ArrayAdapter.createFromResource(unitType.getContext(),R.array.tempList, android.R.layout.simple_spinner_item);
                             imgView.setImageResource(R.drawable.temperature);
                             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                             unitConv.setAdapter(arrayAdapter);
                             inputTxt.setText("0");
                             outputTxt.setText("0");
-                        }else if(selected.getText().equals("Distance")){
+                        }else if(selectRadio.getText().equals("Distance")){
                             arrayAdapter = ArrayAdapter.createFromResource(unitType.getContext(),R.array.distList, android.R.layout.simple_spinner_item);
                             imgView.setImageResource(R.drawable.distance);
                             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                             unitConv.setAdapter(arrayAdapter);
                             inputTxt.setText("0");
                             outputTxt.setText("0");
-                        }else if(selected.getText().equals("Weight")){
+                        }else if(selectRadio.getText().equals("Weight")){
                             arrayAdapter = ArrayAdapter.createFromResource(unitType.getContext(),R.array.weightList, android.R.layout.simple_spinner_item);
                             imgView.setImageResource(R.drawable.weight);
                             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -80,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
+
+    public void doConvert(){
+        RadioButton selectRadio = (RadioButton) findViewById(unitType.getCheckedRadioButtonId());
+        double val = Double.parseDouble(inputTxt.getText().toString());
+        double res = convertUnit(selectRadio.getText().toString(),unitOri.getSelectedItem().toString(),unitConv.getSelectedItem().toString(),val);
+        outputTxt.setText(strResult(res,roundBox.isChecked()));
+    }
+
 
     protected double convertUnit(String type, String oriUnit, String convUnit, double value){
         if(type.equals("Temperature")){
