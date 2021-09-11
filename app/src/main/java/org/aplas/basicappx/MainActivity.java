@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.DecimalFormat;
 
 import android.content.DialogInterface;
+import android.icu.util.Output;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
@@ -41,6 +44,41 @@ public class MainActivity extends AppCompatActivity {
         roundBox = (CheckBox)findViewById(R.id.chkRounded);
         formBox = (CheckBox)findViewById(R.id.chkFormula);
         imgView = (ImageView)findViewById(R.id.img);
+
+        unitType.setOnCheckedChangeListener(
+                new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                        RadioButton selected = (RadioButton) findViewById(checkedId);
+                        ArrayAdapter<CharSequence> arrayAdapter;
+                        if(selected.getText().equals("Temperature")){
+                            arrayAdapter = ArrayAdapter.createFromResource(unitType.getContext(),R.array.tempList, android.R.layout.simple_spinner_item);
+                            imgView.setImageResource(R.drawable.temperature);
+                            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            unitOri.setAdapter(arrayAdapter);
+                            unitConv.setAdapter(arrayAdapter);
+                            inputTxt.setText("0");
+                            outputTxt.setText("0");
+                        }else if(selected.getText().equals("Distance")){
+                            arrayAdapter = ArrayAdapter.createFromResource(unitType.getContext(),R.array.distList, android.R.layout.simple_spinner_item);
+                            imgView.setImageResource(R.drawable.distance);
+                            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            unitOri.setAdapter(arrayAdapter);
+                            unitConv.setAdapter(arrayAdapter);
+                            inputTxt.setText("0");
+                            outputTxt.setText("0");
+                        }else if(selected.getText().equals("Weight")){
+                            arrayAdapter = ArrayAdapter.createFromResource(unitType.getContext(),R.array.weightList, android.R.layout.simple_spinner_item);
+                            imgView.setImageResource(R.drawable.weight);
+                            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            unitOri.setAdapter(arrayAdapter);
+                            unitConv.setAdapter(arrayAdapter);
+                            inputTxt.setText("0");
+                            outputTxt.setText("0");
+                        }
+                    }
+                }
+        );
     }
 
     protected double convertUnit(String type, String oriUnit, String convUnit, double value){
